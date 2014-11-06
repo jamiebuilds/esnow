@@ -29,7 +29,7 @@
     }
 
     .billboard h1 {
-      font-size: 5em;
+      font-size: 4em;
     }
 
     .heading {
@@ -72,7 +72,7 @@
     }
 
     .guide h2 {
-      padding: 2em 0;
+      padding: 2em 0.5em;
       font-size: 1.5em;
       text-align: center;
       color: #f1de4f;
@@ -80,6 +80,7 @@
     }
 
     .guide pre {
+      overflow: auto;
       margin: 1em 0;
       padding: 2em;
       text-align: left;
@@ -88,6 +89,7 @@
     }
 
     .guide .hljs {
+      overflow: visible;
       background: transparent;
       color: inherit;
     }
@@ -95,6 +97,10 @@
     @media (min-width: 900px) {
       body {
         font-size: 2em;
+      }
+
+      .billboard h1 {
+        font-size: 5em;
       }
 
       .guide h2 {
