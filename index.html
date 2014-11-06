@@ -1,0 +1,426 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ESNOW</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      margin: 0;
+      font: 600 1em/1.4 "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #323330;
+      text-align: center;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+    }
+
+    .billboard {
+      padding: 1em 0;
+      background: #f1de4f;
+      color: #323330;
+      text-align: center;
+    }
+
+    .billboard h1 {
+      font-size: 5em;
+    }
+
+    .heading {
+      padding: 1em 0;
+      color: #f1de4f;
+      background: #323330;
+    }
+
+    .selector-option {
+      display: block;
+      font-size: 2em;
+    }
+
+    .selector-option:hover {
+      background: #fafafa;
+    }
+
+    .selector-option input {
+      display: none;
+    }
+
+    .selector-option span {
+      display: block;
+      padding: 0.2em 0;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .selector-option input:checked + span {
+      background: #f1de4f;
+      color: #323330;
+    }
+
+    .guide {
+      display: none;
+    }
+
+    .guide-open {
+      display: block;
+    }
+
+    .guide h2 {
+      padding: 2em 0;
+      font-size: 1.5em;
+      text-align: center;
+      color: #f1de4f;
+      background: #323330;
+    }
+
+    .guide pre {
+      margin: 1em 0;
+      padding: 2em;
+      text-align: left;
+      background: #fafafa;
+    }
+
+    @media (min-width: 900px) {
+      body {
+        font-size: 2em;
+      }
+
+      .guide h2 {
+        font-size: 2em;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header class="billboard">
+    <h1>#ESNOW</h1>
+  </header>
+
+  <p class="heading">What build tool are you using?</p>
+
+  <div class="selector">
+    <label class="selector-option">
+      <input type="radio" name="build-tool" value="gulp">
+      <span>Gulp</span>
+    </label>
+    <label class="selector-option">
+      <input type="radio" name="build-tool" value="grunt">
+      <span>Grunt</span>
+    </label>
+    <label class="selector-option">
+      <input type="radio" name="build-tool" value="browserify">
+      <span>Browserify</span>
+    </label>
+    <label class="selector-option">
+      <input type="radio" name="build-tool" value="cli">
+      <span>Command line</span>
+    </label>
+  </div>
+
+  <p class="heading">What transpiler would you like to use?</p>
+
+  <div class="selector">
+    <label class="selector-option">
+      <input type="radio" name="transpiler" value="6to5">
+      <span>6to5</span>
+    </label>
+    <label class="selector-option">
+      <input type="radio" name="transpiler" value="traceur">
+      <span>Traceur</span>
+    </label>
+    <label class="selector-option">
+      <input type="radio" name="transpiler" value="esnext">
+      <span>esnext</span>
+    </label>
+  </div>
+
+  <!-- Gulp -->
+
+  <div class="guide" data-build-tool="gulp" data-transpiler="6to5">
+    <h2>How to set up <u>6to5</u> with <u>Gulp</u>:</h2>
+
+    <pre><code>$ npm install --save-dev gulp-6to5</code></pre>
+
+    <pre><code>var gulp = require('gulp');
+var to5 = require('gulp-6to5');
+
+return gulp.task('build', function() {
+    gulp.src('src/app.js')
+        .pipe(to5())
+        .pipe(gulp.dest('dist'));
+});</code></pre>
+
+    <pre><code>$ gulp build</code></pre>
+  </div>
+
+  <div class="guide" data-build-tool="gulp" data-transpiler="traceur">
+    <h2>How to set up <u>Traceur</u> with <u>Gulp</u>:</h2>
+
+    <pre><code>$ npm install --save-dev gulp-traceur</code></pre>
+
+    <pre><code>var gulp = require('gulp');
+var traceur = require('gulp-traceur');
+
+gulp.task('default', function () {
+    return gulp.src('src/app.js')
+        .pipe(traceur({sourceMap: true}))
+        .pipe(gulp.dest('dist'));
+});</code></pre>
+
+    <pre><code>$ gulp build</code></pre>
+  </div>
+
+  <div class="guide" data-build-tool="gulp" data-transpiler="esnext">
+    <h2>How to set up <u>esnext</u> with <u>Gulp</u>:</h2>
+
+    <pre><code>$ npm install --save-dev gulp-esnext</code></pre>
+
+    <pre><code>var gulp = require('gulp');
+var esnext = require('gulp-esnext');
+
+gulp.task('default', function () {
+    return gulp.src('src/app.js')
+        .pipe(esnext())
+        .pipe(gulp.dest('dist'));
+});</code></pre>
+
+    <pre><code>$ gulp build</code></pre>
+  </div>
+
+  <!-- Grunt -->
+
+  <div class="guide" data-build-tool="grunt" data-transpiler="6to5">
+    <h2>How to set up <u>6to5</u> with <u>Grunt</u>:</h2>
+
+    <pre><code>$ npm install --save-dev grunt-6to5</code></pre>
+
+    <pre><code>grunt.loadNpmTasks('grunt-6to5');
+
+grunt.initConfig({
+    '6to5': {
+        options: {
+            sourceMap: true
+        },
+        dist: {
+            files: {
+                'dist/app.js': 'src/app.js'
+            }
+        }
+    }
+});
+
+grunt.registerTask('build', ['6to5']);</code></pre>
+
+    <pre><code>$ grunt build</code></pre>
+  </div>
+
+  <div class="guide" data-build-tool="grunt" data-transpiler="traceur">
+    <h2>How to set up <u>Traceur</u> with <u>Grunt</u>:</h2>
+
+    <pre><code>$ npm install --save-dev grunt-traceur</code></pre>
+
+    <pre><code>grunt.loadNpmTasks('grunt-traceur');
+
+grunt.initConfig({
+    traceur: {
+        dist: {
+            files: {
+                'dist/app.js': 'src/app.js'
+            }
+        }
+    }
+});
+
+grunt.registerTask('build', ['traceur']);</code></pre>
+
+    <pre><code>$ grunt build</code></pre>
+  </div>
+
+  <div class="guide" data-build-tool="grunt" data-transpiler="esnext">
+    <h2>How to set up <u>esnext</u> with <u>Grunt</u>:</h2>
+
+    <pre><code>$ npm install --save-dev grunt-esnext</code></pre>
+
+    <pre><code>grunt.loadNpmTasks('grunt-esnext');
+
+grunt.initConfig({
+  esnext: {
+    options: {
+      includeRuntime: true
+    },
+    dist: {
+      files: {
+        'dist/app.js': 'src/app.js'
+      }
+    }
+  }
+});
+
+grunt.registerTask('build', ['esnext']);</code></pre>
+
+    <pre><code>$ grunt build</code></pre>
+  </div>
+
+  <!-- Browserify -->
+
+  <div class="guide" data-build-tool="browserify" data-transpiler="6to5">
+    <h2>How to set up <u>6to5</u> with <u>Browserify</u>:</h2>
+
+    <pre><code>$ npm install --save-dev 6to5-browserify</code></pre>
+
+    <pre><code>// build.js
+var fs = require('fs');
+var browserify = require('browserify');
+var to5 = require('6to5-browserify');
+
+browserify({ debug: true })
+    .transform(to5)
+    .require('./src/app.js', { entry: true })
+    .bundle()
+    .pipe(fs.createWriteStream('./dist/app.js'));</code></pre>
+
+    <pre><code>$ node build.js</code></pre>
+  </div>
+
+  <div class="guide" data-build-tool="browserify" data-transpiler="traceur">
+    <h2>How to set up <u>Traceur</u> with <u>Browserify</u>:</h2>
+
+    <pre><code>$ npm install --save-dev es6ify</code></pre>
+
+    <pre><code>// build.js
+var fs = require('fs');
+var browserify = require('browserify');
+var es6ify = require('es6ify');
+
+browserify({ debug: true })
+    .add(es6ify.runtime)
+    .transform(es6ify)
+    .require('./src/app.js', { entry: true })
+    .bundle()
+    .pipe(fs.createWriteStream('./dist/app.js'));</code></pre>
+
+    <pre><code>$ node build.js</code></pre>
+  </div>
+
+  <div class="guide" data-build-tool="browserify" data-transpiler="esnext">
+    <h2>How to set up <u>esnext</u> with <u>Browserify</u>:</h2>
+
+    <pre><code>$ npm install --save-dev esnext</code></pre>
+
+    <pre><code>// build.js
+var fs = require('fs');
+var browserify = require('browserify');
+var esnext = require('esnext');
+
+browserify({ debug: true })
+    .transform(esnext)
+    .require('./src/app.js', { entry: true })
+    .bundle()
+    .pipe(fs.createWriteStream('./dist/app.js'));</code></pre>
+
+    <pre><code>$ node build.js</code></pre>
+  </div>
+
+  <!-- Command Line -->
+
+  <div class="guide" data-build-tool="cli" data-transpiler="6to5">
+    <h2>How to set up <u>6to5</u> with <u>Command Line</u>:</h2>
+
+    <pre><code>$ npm install --global 6to5</code></pre>
+
+    <pre><code>$ 6to5 src/app.js -s -o dist/app.js</code></pre>
+  </div>
+
+  <div class="guide" data-build-tool="cli" data-transpiler="traceur">
+    <h2>How to set up <u>Traceur</u> with <u>Command Line</u>:</h2>
+
+    <pre><code>$ npm install --global traceur</code></pre>
+
+    <pre><code>$ traceur src/app.js --source-maps file --out dist/app.js</code></pre>
+  </div>
+
+  <div class="guide" data-build-tool="cli" data-transpiler="esnext">
+    <h2>How to set up <u>esnext</u> with <u>Command Line</u>:</h2>
+
+    <pre><code>$ npm install --global esnext</code></pre>
+
+    <pre><code>$ esnext src/app.js --source-maps -o dist/app.js</code></pre>
+  </div>
+
+<!-- TEMPLATE -->
+<!--
+  <div class="guide" data-build-tool="" data-transpiler="">
+    <h2>How to set up <u></u> with <u></u>:</h2>
+
+    <pre><code>$ npm install --save-dev </code></pre>
+
+    <pre><code></code></pre>
+
+    <pre><code>$ </code></pre>
+  </div>
+-->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+    var guides = [];
+
+    $('.guide').each(function() {
+      var $el = $(this);
+
+      guides.push({
+        $el : $el,
+        buildTool  : $el.data('build-tool'),
+        transpiler : $el.data('transpiler')
+      });
+    });
+
+    var activeBuildTool, activeTranspiler;
+
+    $('.selector').on('change', 'input', function(e) {
+      var $input = $(e.currentTarget);
+
+      if ($input.attr('name') === 'build-tool') {
+        activeBuildTool = $input.attr('value');
+      } else {
+        activeTranspiler = $input.attr('value');
+      }
+
+      update();
+    });
+
+    var $activeGuide;
+
+    function update() {
+      if (!activeBuildTool || !activeTranspiler) {
+        return;
+      }
+
+      if ($activeGuide) {
+        $activeGuide.removeClass('guide-open');
+        $activeGuide = undefined;
+      }
+
+      guides.forEach(function(guide) {
+        if (
+          guide.buildTool === activeBuildTool &&
+          guide.transpiler === activeTranspiler
+        ) {
+          $activeGuide = guide.$el;
+        }
+      });
+
+      if ($activeGuide) {
+        $activeGuide.addClass('guide-open');
+      }
+    }
+  </script>
+
+</body>
+</html>
