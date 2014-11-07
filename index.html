@@ -32,6 +32,10 @@
       font-size: 4em;
     }
 
+    .text-inverse {
+      color: white;
+    }
+
     .heading {
       padding: 1em 0;
       color: #f1de4f;
@@ -73,10 +77,14 @@
 
     .guide h2 {
       padding: 2em 0.5em;
-      font-size: 1.5em;
+      font-size: 2em;
       text-align: center;
       color: #f1de4f;
       background: #323330;
+    }
+
+    .guide h2 u {
+      white-space: nowrap;
     }
 
     .guide pre {
@@ -113,7 +121,7 @@
 <body>
 
   <header class="billboard">
-    <h1>#ESNOW</h1>
+    <h1>#ES<span class="text-inverse">NOW</span></h1>
   </header>
 
   <p class="heading">What build tool are you using?</p>
@@ -435,7 +443,7 @@ browserify({ debug: true })
       }
     }
   </script>
-  
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
 
   <script>
