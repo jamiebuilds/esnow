@@ -52,7 +52,14 @@
     }
 
     .selector-option input {
-      display: none;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
     }
 
     .selector-option span {
@@ -105,7 +112,6 @@
     .footer {
       color: white;
       border-top: 1em solid #f1de4f;
-      background: #323330;
       background: #fafafa;
       padding: 1em;
     }
